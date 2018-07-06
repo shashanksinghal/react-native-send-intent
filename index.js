@@ -46,6 +46,8 @@ var SendIntentAndroid = {
     },
     sendMail(mail, subject = "", body = "") {
         RNSendIntentAndroid.sendMail(mail, subject, body);
+    }, sendHtmlMail(mail, subject = "", body = "") {
+        RNSendIntentAndroid.sendHtmlMail(mail, subject, body);
     },
     openChooserWithOptions(options, title) {
         RNSendIntentAndroid.openChooserWithOptions(options, title);

@@ -45,6 +45,7 @@ import okhttp3.ResponseBody;
 import okio.Okio;
 import okio.BufferedSink;
 import okio.BufferedSource;
+import android.text.Html;
 
 public class RNSendIntentModule extends ReactContextBaseJavaModule {
 
@@ -304,6 +305,28 @@ public class RNSendIntentModule extends ReactContextBaseJavaModule {
       if (sendIntent.resolveActivity(this.reactContext.getPackageManager()) != null) {
         this.reactContext.startActivity(sendIntent);
       }
+    }
+
+    @ReactMethod
+    public void sendHtmlMail(String recepientString, String subject, String body) {
+
+        final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("text/html");
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(body));
+        this.reactContext.startActivity(Intent.createChooser(emailIntent, "Email:"));
+
+//        String uriText = "mailto:" + Uri.encode(recepientString) +
+//                "?body=" + Uri.encode(body) +
+//                "&subject=" + Uri.encode(subject);
+//
+//        Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uriText));
+//        sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//        //Check that an app exists to receive the intent
+//        if (sendIntent.resolveActivity(this.reactContext.getPackageManager()) != null) {
+//            this.reactContext.startActivity(sendIntent);
+//        }
     }
 
     @ReactMethod
